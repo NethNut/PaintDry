@@ -7,3 +7,12 @@
     color: blue;
     font-size: 150%;
 }
+.wetPaint{
+    width: 30%;
+    margin-top: 20%;
+    background: #94BBE9;
+}
+
+body {
+  background: #94BBE9;
+}
