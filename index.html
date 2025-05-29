@@ -6,33 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paint Drying Simulator</title>
   <link rel="stylesheet" href="style.css">
-
-
 </head>
 
-<body onload="startTime()"></body>
-<h1 class="red">Paint Drying Simulator</h1>
-<h2 class="red"></h2>
-<div id="txt" class="clock"></div>
-<img class="wetPaint" src="images/wet paint.png" alt="">
-<script>
+<body>
+  <div id="gloss-overlay"></div>
+  <h1 class="red">Paint Drying Simulator</h1>
+  <h2 class="red"></h2>
+  <h3 class="clock"> you have been watching paint dry for </h3>
+  <div class="clock" id="timer">00:00:00</div>
+  <button id="start-btn" class ="button">Start Watching Paint Dry</button>
+  <img class="wetPaint" src="images/wet paint.png" alt="">
 
-  function startTime() {
-    const today = new Date();
-    let h = today.getHours();
-    let m = today.getMinutes();
-    let s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
-  }
-  setInterval(startTime, 1000);
-  function checkTime(i) {
-    if (i < 10) { i = "0" + i };
-    return i;
-  }
-</script>
+  <script>
+    let seconds = 0;
+    let intervalId = null;
+    const timerElement = document.getElementById('timer');
+    const glossOverlay = document.getElementById('gloss-overlay');
+    const startBtn = document.getElementById('start-btn');
 
+    function formatTime(sec) {
+      const hrs = String(Math.floor(sec / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+      const secs = String(sec % 60).padStart(2, '0');
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    function updateGlossiness(sec) {
+      let opacity = Math.max(0, 0.5 - (sec / 21600) * 0.5);
+      glossOverlay.style.background = `rgba(255,255,255,${opacity})`;
+    }
+
+    startBtn.addEventListener('click', function () {
+      if (intervalId !== null) return; 
+      intervalId = setInterval(() => {
+        seconds++;
+        timerElement.textContent = formatTime(seconds);
+        updateGlossiness(seconds);
+      }, 1000);
+      startBtn.disabled = true;
+    });
+
+  
+    updateGlossiness(0);
+  </script>
 </body>
 
 </html>

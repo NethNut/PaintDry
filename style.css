@@ -6,13 +6,60 @@
     text-align: center;
     color: blue;
     font-size: 150%;
+    margin-top: 0%
 }
 .wetPaint{
     width: 30%;
-    margin-top: 20%;
+    margin-top: 10%;
     background: #94BBE9;
+    margin-left: 35%;
 }
 
 body {
   background: #94BBE9;
+}
+
+#gloss-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: rgba(255,255,255,0.5);
+  z-index: 0;
+  transition: background 0.5s linear;
+}
+body > *:not(#gloss-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+button {
+    width: auto;
+    height: auto;
+    padding: 16px 32px;
+    background: #94BBE9;
+    border: none;
+    font-size: 150%;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 20px auto;
+    display: block;
+    transition: background 0.2s, box-shadow 0.1s, transform 0.1s;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25), 0 1.5px 0 #6a8bbd;
+    transform: translateY(0);
+}
+
+button:active {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18), 0 1px 0 #6a8bbd;
+    transform: translateY(2px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
